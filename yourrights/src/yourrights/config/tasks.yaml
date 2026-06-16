@@ -1,17 +1,32 @@
-research_task:
+analyze_situation:
   description: >
-    Conduct a thorough research about {topic}
-    Make sure you find any interesting and relevant information given
-    the current year is {current_year}.
+    Analyze the following situation described by a Pakistani citizen: {situation}
+    Identify the key legal issues, which area of law applies (criminal, civil, labor, 
+    tenant, constitutional etc.), and what the person needs to know.
   expected_output: >
-    A list with 10 bullet points of the most relevant information about {topic}
-  agent: researcher
+    A structured summary of the legal issues involved, the area of law that applies, 
+    and key questions that need to be answered by retrieving relevant laws.
+  agent: situation_analyzer
 
-reporting_task:
+retrieve_laws:
   description: >
-    Review the context you got and expand each topic into a full section for a report.
-    Make sure the report is detailed and contains any and all relevant information.
+    Based on the legal analysis provided, find the most relevant Pakistani laws, 
+    constitutional articles, PPC sections, or other legal provisions that apply.
+    Search thoroughly and return specific law names, section numbers, and what they say.
   expected_output: >
-    A fully fledged report with the main topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A list of relevant laws with their names, section numbers, and a brief description 
+    of what each law says and how it applies to this situation.
+  agent: law_retriever
+
+explain_rights:
+  description: >
+    Using the situation analysis and retrieved laws, explain to the user in simple 
+    clear language: what their rights are, what laws protect them, and what concrete 
+    steps they can take. Always add a disclaimer that this is informational only.
+  expected_output: >
+    A clear, structured response with three sections:
+    1. Your Rights in this situation
+    2. Relevant Laws that protect you
+    3. Steps You Can Take
+    Followed by a disclaimer that this is informational, not legal advice.
+  agent: rights_explainer
