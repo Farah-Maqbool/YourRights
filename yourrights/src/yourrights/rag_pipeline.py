@@ -12,7 +12,6 @@ embedding_fn = embedding_functions.SentenceTransformerEmbeddingFunction(
 )
 
 def extract_text_from_pdf(pdf_path: str) -> str:
-    """Extract full tet from PDF"""
     text = ""
     with pdfplumber.open(pdf_path) as pdf:
         for page in pdf.pages:
@@ -22,37 +21,40 @@ def extract_text_from_pdf(pdf_path: str) -> str:
     return text
 
 def chunk_text(text: str, chunk_size: int = 500, overlap: int = 50) -> list:
-    """Split text into overlapping chunks"""
     words = text.split()
     chunks = []
     i = 0
     while i < len(words):
-        chunk = " ".join(words[i:i  + chunk_size])
+        chunk = " ".join(words[i:i + chunk_size])
         chunks.append(chunk)
-        i+= chunk_size - overlap
+        i += chunk_size - overlap
     return chunks
 
 def ingest_laws():
-    """Read PDFs, chunk them, store in ChromaDB"""
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
+    # Delete and recreate to ensure fresh ingestion
+    try:
+        client.delete_collection("pakistan_laws")
+    except:
+        pass
+
     collection = client.get_or_create_collection(
-        name = "pakistan_laws",
+        name="pakistan_laws",
         embedding_function=embedding_fn
     )
-
     if collection.count() > 0:
-        print(f"Already ingested {collection.count} chunks. Skipping")
+        print(f"Already ingested {collection.count()} chunks. Skipping.")
         return collection
-    
-    print("Starting ingesting")
+
+    print("Starting ingestion...")
 
     pdf_files = list(LAWS_DIR.glob("*.pdf"))
 
     if not pdf_files:
         print("No PDFs found in data/laws/")
         return collection
-    
+
     all_chunks = []
     all_ids = []
     all_metadata = []
@@ -67,28 +69,27 @@ def ingest_laws():
         for i, chunk in enumerate(chunks):
             all_chunks.append(chunk)
             all_ids.append(f"{law_name}_{i}")
-            all_metadata.append({"source":law_name})
+            all_metadata.append({"source": law_name})
 
         print(f"  {len(chunks)} chunks from {law_name}")
 
     batch_size = 100
     for i in range(0, len(all_chunks), batch_size):
         collection.add(
-                documents=all_chunks[i:i+batch_size],
-                ids=all_ids[i:i+batch_size],
-                metadatas=all_metadata[i:i+batch_size]
+            documents=all_chunks[i:i + batch_size],
+            ids=all_ids[i:i + batch_size],
+            metadatas=all_metadata[i:i + batch_size]
         )
 
     print(f"Ingestion complete. Total chunks: {collection.count()}")
     return collection
-    
+
 
 def query_laws(query: str, n_results: int = 5) -> str:
-    """Query ChromaDB for relevant law sections."""
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
     collection = client.get_or_create_collection(
-        name = "pakistan_laws",
+        name="pakistan_laws",
         embedding_function=embedding_fn
     )
 
@@ -99,7 +100,7 @@ def query_laws(query: str, n_results: int = 5) -> str:
 
     output = ""
     for i, (doc, meta) in enumerate(zip(results["documents"][0], results["metadatas"][0])):
-        output += f"[Source: {meta['source'].upper()}]\n\n"
+        output += f"[Source: {meta['source'].upper()}]\n{doc}\n\n"  # Fixed: added doc
 
     return output
 

@@ -1,9 +1,9 @@
 from crewai.tools import BaseTool
 from typing import Type
 from pydantic import BaseModel, Field
-from yourrights.rag_pipeline import ingest_laws, query_laws
+from yourrights.rag_pipeline import query_laws
 
-ingest_laws()
+
 
 class RAGToolInput(BaseModel):
     """Input schema for RAGTool."""
@@ -19,6 +19,7 @@ class PakistanRAGTool(BaseTool):
     args_schema: Type[BaseModel] = RAGToolInput
 
     def _run(self, query: str) -> str:
+        
         results = query_laws(query, n_results=5)
         if not results:
             return "No relevant laws found for this query."
