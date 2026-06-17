@@ -1,3 +1,6 @@
+import litellm
+litellm.drop_params = True
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
@@ -23,7 +26,7 @@ class Yourrights():
         )
 
     @agent
-    def law_retreiever(self) -> Agent:
+    def law_retriever(self) -> Agent:
         return Agent(
             config=self.agents_config['law_retriever'], # type: ignore[index]
             tools= [self.rag_tool, self.web_tool],

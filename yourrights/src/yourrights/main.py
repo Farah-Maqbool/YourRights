@@ -13,10 +13,20 @@ def run():
     """
     Run the crew.
     """
+
+    print("Welcome to Yourights")
+
+    situation = input("Describe your situation: ")
+
+    if not situation.strip():
+        print("Please describe your situation")
+        return
+
     inputs = {
-        'topic': 'AI LLMs',
-        'current_year': str(datetime.now().year)
+        'situation': situation,
     }
+
+    print("\nAnalyzing your situation...\n")
 
     try:
         Yourrights().crew().kickoff(inputs=inputs)
