@@ -1,5 +1,15 @@
-import streamlit as st
+import sys
+from pathlib import Path
+
+# Add the 'src' directory to the Python path
+src_path = str(Path(__file__).parent.parent)
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+# Your original imports remain below
 from yourrights.crew import Yourrights
+import streamlit as st
+
 
 st.set_page_config(
     page_title="YourRights",

@@ -85,7 +85,7 @@ def ingest_laws():
     return collection
 
 
-def query_laws(query: str, n_results: int = 5) -> str:
+def query_laws(query: str, n_results: int = 2) -> str:
     client = chromadb.PersistentClient(path=str(CHROMA_DIR))
 
     collection = client.get_or_create_collection(

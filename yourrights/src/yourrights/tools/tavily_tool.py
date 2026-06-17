@@ -21,7 +21,7 @@ class PakistaniLawWebSearchTool(BaseTool):
 
         results = client.search(
             query = f"Paksitan law {query}",
-            max_results=3,
+            max_results=2,
             search_depth="basic"
         )
 

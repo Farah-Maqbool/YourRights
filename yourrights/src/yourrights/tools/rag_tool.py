@@ -20,7 +20,7 @@ class PakistanRAGTool(BaseTool):
 
     def _run(self, query: str) -> str:
         
-        results = query_laws(query, n_results=5)
+        results = query_laws(query, n_results=2)
         if not results:
             return "No relevant laws found for this query."
         return results
