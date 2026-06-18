@@ -1,32 +1,28 @@
 analyze_situation:
   description: >
-    Analyze the following situation described by a Pakistani citizen: {situation}
-    Identify the key legal issues, which area of law applies (criminal, civil, labor, 
-    tenant, constitutional etc.), and what the person needs to know.
+    Analyze this situation from a Pakistani citizen: {situation}
+    Identify: key legal issues, area of law, what they need to know.
   expected_output: >
-    A structured summary of the legal issues involved, the area of law that applies, 
-    and key questions that need to be answered by retrieving relevant laws.
+    Brief summary: legal issues, applicable law area, key questions for law retrieval.
   agent: situation_analyzer
 
 retrieve_laws:
   description: >
-    Based on the legal analysis provided, find the most relevant Pakistani laws, 
-    constitutional articles, PPC sections, or other legal provisions that apply.
-    Search thoroughly and return specific law names, section numbers, and what they say.
+    Find the most relevant Pakistani laws for this situation.
+    Return specific law names, section numbers, and what they say.
   expected_output: >
-    A list of relevant laws with their names, section numbers, and a brief description 
-    of what each law says and how it applies to this situation.
+    List of relevant laws with names, section numbers, and brief description of how each applies.
   agent: law_retriever
 
 explain_rights:
   description: >
-    Using the situation analysis and retrieved laws, explain to the user in simple 
-    clear language: what their rights are, what laws protect them, and what concrete 
-    steps they can take. Always add a disclaimer that this is informational only.
+    Using the analysis and laws retrieved, explain in simple language:
+    what rights the person has, what laws protect them, and what steps they can take.
+    Add a disclaimer that this is informational only.
   expected_output: >
-    A clear, structured response with three sections:
-    1. Your Rights in this situation
-    2. Relevant Laws that protect you
+    Three sections:
+    1. Your Rights
+    2. Relevant Laws
     3. Steps You Can Take
-    Followed by a disclaimer that this is informational, not legal advice.
+    Plus a short disclaimer.
   agent: rights_explainer

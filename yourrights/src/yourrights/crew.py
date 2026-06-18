@@ -25,7 +25,8 @@ class Yourrights():
         return Agent(
             config=self.agents_config['situation_analyzer'],
             llm=self.llm,
-            verbose=True
+            verbose=False,
+            max_iter=2
         )
 
     @agent
@@ -34,7 +35,8 @@ class Yourrights():
             config=self.agents_config['law_retriever'],
             llm=self.llm,
             tools=[self.rag_tool, self.web_tool],
-            verbose=True
+            verbose=False,
+            max_iter=2
         )
 
     @agent
@@ -42,7 +44,8 @@ class Yourrights():
         return Agent(
             config=self.agents_config['rights_explainer'],
             llm=self.llm,
-            verbose=True
+            verbose=False,
+            max_iter=2
         )
 
     @task
