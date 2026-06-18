@@ -1,40 +1,52 @@
-# YourRights
+# ⚖️ YourRights — Know Your Pakistani Legal Rights
 
 **YourRights** is an AI-powered legal rights explainer that helps Pakistani citizens understand their legal rights in plain language. Describe your situation and get clear guidance on relevant laws, your rights, and concrete steps you can take.
 
-## The Problem
+## 🚨 The Problem
 
-Most Pakistanis don't know their legal rights. Lawyers are expensive and inaccessible. When something happens — police stops you, employer doesn't pay, landlord harasses you — you don't know what you can legally do.
+Most Pakistanis don't know their legal rights. Lawyers are expensive and inaccessible. When something happens — police stop you, employer doesn't pay, landlord harasses you — you don't know what you can legally do.
 
-## The Solution
+## 💡 The Solution
 
 Describe your situation in plain Urdu or English → YourRights finds the relevant Pakistani law → explains your rights and next steps in simple language.
 
 ---
 
-## Architecture
+## ✨ Key Features
+
+* 🔍 **Legal Document Retrieval (RAG)** — Searches Pakistani legal documents to find relevant laws and constitutional provisions.
+* 🤖 **Multi-Agent AI Workflow** — Specialized agents analyze situations, retrieve legal information, and explain rights.
+* 🌐 **Real-Time Legal Research** — Uses Tavily web search to supplement legal knowledge with recent information.
+* 🇵🇰 **Pakistan-Focused** — Built specifically around Pakistani laws and legal documents.
+* 🗣️ **Plain Language Explanations** — Converts complex legal language into easy-to-understand guidance.
+* 📋 **Actionable Next Steps** — Provides practical guidance on what users can do next.
+* ⚡ **Fast Responses** — Powered by Groq's high-speed LLM inference.
+
+---
+
+## 🏗️ Architecture
 
 YourRights uses a multi-agent system built on CrewAI with three specialized agents working sequentially:
 
-1. **Situation Analyzer** — understands the legal context of your situation
-2. **Law Retriever** — searches Pakistani legal documents via RAG + Tavily web search
-3. **Rights Explainer** — translates legal language into clear, actionable guidance
+1. **Situation Analyzer** — Understands the legal context of the user's situation.
+2. **Law Retriever** — Searches Pakistani legal documents using RAG and Tavily web search.
+3. **Rights Explainer** — Translates legal language into clear, actionable guidance.
 
 ---
 
-## Tech Stack
+## 🛠️ Tech Stack
 
-* **CrewAI** — multi-agent orchestration
+* **CrewAI** — Multi-agent orchestration
 * **Groq (LLaMA 3.3 70B)** — LLM inference
-* **ChromaDB** — vector database for legal document retrieval
-* **HuggingFace Sentence Transformers** — document embeddings
-* **Tavily** — real-time web search for recent legal updates
-* **Streamlit** — frontend
-* **RAG Pipeline** — Constitution of Pakistan, Pakistan Penal Code (PPC), Code of Criminal Procedure (CrPC)
+* **ChromaDB** — Vector database for legal document retrieval
+* **HuggingFace Sentence Transformers** — Document embeddings
+* **Tavily** — Real-time web search
+* **Streamlit** — Frontend application
+* **RAG Pipeline** — Legal document retrieval system
 
 ---
 
-## Legal Documents
+## 📚 Legal Documents
 
 * Constitution of Pakistan (with 27th Amendment)
 * Pakistan Penal Code (PPC) 1860
@@ -42,7 +54,7 @@ YourRights uses a multi-agent system built on CrewAI with three specialized agen
 
 ---
 
-## Live Demo
+## 🚀 Live Demo
 
 Try the deployed application:
 
@@ -50,7 +62,7 @@ Try the deployed application:
 
 ---
 
-## Run Locally
+## ⚙️ Run Locally
 
 ```bash
 git clone https://github.com/Farah-Maqbool/YourRights.git
@@ -68,7 +80,7 @@ streamlit run src/yourrights/app.py
 
 ---
 
-## Environment Variables
+## 🔑 Environment Variables
 
 Create a `.env` file and add:
 
