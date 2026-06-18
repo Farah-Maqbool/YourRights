@@ -1,6 +1,12 @@
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
+
+# Add the src directory to path so yourrights package is found
+current_dir = os.path.dirname(os.path.abspath(__file__))
+src_dir = os.path.dirname(current_dir)  # goes up to src/
+project_dir = os.path.dirname(src_dir)  # goes up to yourrights/
+sys.path.insert(0, src_dir)
+sys.path.insert(0, project_dir)
 
 import streamlit as st
 from yourrights.crew import Yourrights
